@@ -1,14 +1,8 @@
 ---
 - hosts: all
   sudo: true
-  tasks:
-    - name: add oracle java installer repository
-      apt_repository: repo='ppa:webupd8team/java' state=present
-    - name: accept oracle license
-      debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value=true vtype=select
-    - name: install java 8
-      apt: name='oracle-java8-installer' update_cache=yes state=latest
-    - name: set up the java 8 environment variables JAVA_HOME and PATH
-      apt: name='oracle-java8-set-default' update_cache=yes state=latest  
-    - name: install tomcat 7
-      apt: name='tomcat7-user' update_cache=yes state=latest
+  roles:
+     - java
+#  tasks: 
+#    - name: install tomcat 7
+#      apt: name='tomcat7-user' update_cache=yes state=latest
