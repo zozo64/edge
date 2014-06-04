@@ -3,6 +3,24 @@
   sudo: true
   roles:
      - java
-#  tasks: 
-#    - name: install tomcat 7
-#      apt: name='tomcat7-user' update_cache=yes state=latest
+  tasks: 
+#     - name: install the backported kernel
+#       apt: name='linux-image-generic-lts-raring' update_cache=yes state=latest 
+#       notify:
+#          - reboot
+# TODO headers are probably not necessary
+# See: http://docs.docker.io/installation/ubuntulinux/
+#     - name: install the backported kernel headers
+#       apt: name='linux-headers-generic-lts-raring' update_cache=yes state=latest
+#       notify:
+#          - reboot
+    - name: install docker
+      apt: name='docker.io' update_cache=yes state=latest
+    - name: create docker symlink for convinience
+      file: src=/usr/bin/docker.io dest=/usr/local/bin/docker state=link
+  handlers:
+     - name: reboot
+       command: shutdown -r now "ansible triggered"
+       notify: post shutdown pause
+     - name: post shutdown pause
+       pause: seconds=40 
