@@ -28,4 +28,8 @@ if [[ ! -d $ANSIBLE_PATH ]]; then
   echo "export ANSIBLE_HOSTS=$ANSIBLE_HOSTS" >> $VAGRANT_PATH/.bashrc
 fi
 
+# Install docker
+apt-get install docker.io -y
+ln -sf /usr/bin/docker.io /usr/local/bin/docker
+
 echo "Done."

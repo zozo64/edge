@@ -19,6 +19,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--memory", "512"]
     end
     master.vm.synced_folder "provisioning", "/home/vagrant/provisioning"
+	master.vm.synced_folder "docker", "/home/vagrant/docker"
+	# master.vm.synced_folder ".docker", "/var/lib/docker", create: true, owner: "root", group: "root"
     master.vm.provision :shell, :path => "bootstrap.sh"
   end
 
